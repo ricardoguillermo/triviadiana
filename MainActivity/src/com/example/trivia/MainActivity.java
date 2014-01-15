@@ -66,13 +66,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
-	// esto no iria en esta activity
+	/*// esto no iria en esta activity
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+*/
 	/*
 	 * Relaciona el boton apretado Los nombres no son los apropiados pero
 	 * funcionan
@@ -140,6 +140,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		int duration = Toast.LENGTH_LONG;
 		Toast toast = Toast.makeText(context, text, duration);
 		toast.show();
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
 	}
 
 }

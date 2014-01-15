@@ -213,6 +213,7 @@ public class Cancha extends Activity implements OnClickListener {
 				if (time == time_elegido) {
 					errores += 1;// si ya hay 3 errores
 					estado = 0;
+					ponermensaje(" Paso el tiempo  = "+ time_elegido+"  "+ time);
 					puntaje(-10);// metodo sobreescrito
 				}
 			}
@@ -235,7 +236,6 @@ public class Cancha extends Activity implements OnClickListener {
 				soundPool.play(mal, 1, 1, 1, 0, 1);
 				puntaje(-10, sector1);
 			}
-			nueva_jugada();
 			break;
 		case R.id.txtsector2:// clik en sector 2,
 			if (acierto == 2) {
@@ -246,7 +246,6 @@ public class Cancha extends Activity implements OnClickListener {
 				soundPool.play(mal, 1, 1, 1, 0, 1);
 				puntaje(-10, sector2);
 			}
-			nueva_jugada();
 			break;
 		case R.id.txtsector3:// clik en sector 3
 			if (acierto == 3) {
@@ -257,7 +256,6 @@ public class Cancha extends Activity implements OnClickListener {
 				soundPool.play(mal, 1, 1, 1, 0, 1);
 				puntaje(-10, sector3);
 			}
-			nueva_jugada();
 			break;
 		case R.id.txtsector4:// corresponde al 4 sector luego cambiar nombre
 			if (acierto == 4) {
@@ -268,7 +266,6 @@ public class Cancha extends Activity implements OnClickListener {
 				soundPool.play(mal, 1, 1, 1, 0, 1);
 				puntaje(-10, sector4);
 			}
-			nueva_jugada();
 			break;
 		case R.id.btnVolver:// vulve a el menu inicio,
 			Context context = getApplicationContext();
@@ -308,7 +305,7 @@ public class Cancha extends Activity implements OnClickListener {
 			respuesta.setImageResource(getBaseContext().getResources()
 					.getIdentifier("wrong", "drawable", getPackageName()));// Diana
 			revisarelcorrecto();// pinta el correcto
-
+		}
 			// si la cantidad de errores es inadmisible
 			// empieza el camino a Entrada
 			if (errores > cantidaderrores) {
@@ -316,8 +313,11 @@ public class Cancha extends Activity implements OnClickListener {
 				guardaraciertos(0, nivel, temasortedo);
 				pasar_final();
 				return;
+			}else{
+				nueva_jugada();
+				estado = 1;// ?
 			}
-		}
+		
 	}
 
 	// esta sobreescrita por si no hay click y si demora
@@ -334,10 +334,11 @@ public class Cancha extends Activity implements OnClickListener {
 		placard.setText(str);
 
 		revisarelcorrecto();// pinta el correcto en verde
-
+		ponermensaje("errores =" + errores);
 		if (errores > cantidaderrores) {// si son mas de los errores permitidos
 										// va a otra activity
 			estado = 0;// ?
+			errores=0;
 			pasar_final();
 			return;
 		} else {
@@ -391,6 +392,7 @@ public class Cancha extends Activity implements OnClickListener {
 		te.putExtra("misdatos", misdatos); //envia estadística de lo contestado
 		startActivity(te);
 		mp.stop();//Diana para la musica
+		finish();// lo agrego para ver si corrige un bug de repeticion no deseada
 	}
 
 	/*
